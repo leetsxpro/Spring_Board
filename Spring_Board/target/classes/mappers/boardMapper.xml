@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<!-- 게시물 생성 -->
+	<insert id="write" parameterType="kr.co.vo.BoardVO">
+		INSERT INTO LXP_BOARD(BNO, TITLE, CONTENT, WRITER)
+		VALUES(LXP_BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<!-- 게시물 목록 출력 -->
+	<select id="list" resultType="kr.co.vo.BoardVO">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE
+		FROM LXP_BOARD
+		ORDER BY BNO DESC
+	</select>
+	
+	<!-- 게시물 중 하나 클릭시 -->
+	<select id="read" parameterType="int" resultType="kr.co.vo.BoardVO">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE
+		FROM LXP_BOARD
+		WHERE BNO = #{bno}
+	</select>
+	
+	<!-- 게시물 수정 -->
+	<update id="update" parameterType="kr.co.vo.BoardVO">
+		UPDATE LXP_BOARD
+		SET TITLE = #{title}, CONTENT = #{content}
+		WHERE BNO = #{bno}
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM LXP_BOARD
+		WHERE BNO = #{bno}
+	</delete>
+</mapper>
